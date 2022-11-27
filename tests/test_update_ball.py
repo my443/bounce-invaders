@@ -43,5 +43,20 @@ class MyTestCase(unittest.TestCase):
 
         self.assertEqual(results, expected_results)  # add assertion here
 
+    def test_ball_moving_up_and_left(self):
+        ball_x_y = (200, 200)
+        ball_direction = (1, -1)
+        results = dev.update_ball.update_ball_info(ball_x_y, ball_direction, self.SCREEN_WIDTH, self.SCREEN_HEIGHT)
+        expected_results = ((201, 199), (1, -1))
+
+        self.assertEqual(results, expected_results)  # add assertion here
+
+    def test_ball_moving_down_and_right(self):
+        ball_x_y = (200, 200)
+        ball_direction = (1, 1)
+        results = dev.update_ball.update_ball_info(ball_x_y, ball_direction, self.SCREEN_WIDTH, self.SCREEN_HEIGHT)
+        expected_results = ((201, 201), (1, 1))
+
+        self.assertEqual(results, expected_results)  # add assertion here
 if __name__ == '__main__':
     unittest.main()

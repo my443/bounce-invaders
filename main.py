@@ -8,6 +8,7 @@
 import pygame
 from update_ball import *
 from operator import mul
+import time
 
 # Import pygame.locals for easier access to key coordinates
 # Updated to conform to flake8 and black standards
@@ -39,7 +40,7 @@ paddle_top  = 500
 ## TODO - Start the ball in a random place, or in a random **direction** every time.
 ball_x_y = (250, 250)
 
-## TODO - Set a gamespeed. So that the ball will go slower and faster, but the paddle speed doesn't change at all.
+## DONE - Set a gamespeed. So that the ball will go slower and faster, but the paddle speed doesn't change at all.
 ## Gamespeed is a number between 1 and 10.
 ## 1    - is the slowest speed
 ## 10   - is the fastest speed.
@@ -77,58 +78,25 @@ while running:
     # Flip the display
     pygame.display.flip()
 
-
     update_ball = update_ball_info(ball_x_y, ball_direction, SCREEN_WIDTH, SCREEN_HEIGHT)
 
+    ## Set the x and y and the ball direction at each iteration
     ball_x_y = update_ball[0]
     ball_direction = update_ball[1]
 
-
-
     if ball.colliderect(paddle):
-        # running = False
-        # print (ball_x_y)
-        # running = False
-        # ball_direction_x = ball_direction[0]
-        # ball_direction_y = ball_direction[1]
-        #
-        # if ball_direction_x == 1 and ball_x_y[1] < 525:
-        #     print (ball_x_y)
-        #     ball_x_y = (ball_x_y[0], paddle_top - 2)
-        # else:
-        #     ball_x_y = (ball_x_y[0], paddle_top - 27)
-        #
         if ball_direction[1] == 1 and ball_x_y[1] == 500:
-            ball_direction = tuple(map(mul, ball_direction, (1, -1)))
-            ball_x_y = (ball_x_y[0], 498)
-            update_ball = update_ball_info(ball_x_y, ball_direction, SCREEN_WIDTH, SCREEN_HEIGHT)
-            ball = pygame.draw.circle(screen, (242, 91, 80), ball_x_y, 10)
+            ball_direction = tuple(map(mul, ball_direction, (1, -1)))           ## Change the Y direction only.
+            ball_x_y = (ball_x_y[0], 498)                                       ## Put the ball back above the paddle
         elif ball_direction[1] == -1 and ball_x_y[1] == 525:
             ball_direction = tuple(map(mul, ball_direction, (1, -1)))
-            ball_x_y = (ball_x_y[0], 526)
-            update_ball = update_ball_info(ball_x_y, ball_direction, SCREEN_WIDTH, SCREEN_HEIGHT)
-            ball = pygame.draw.circle(screen, (242, 91, 80), ball_x_y, 10)
+            ball_x_y = (ball_x_y[0], 526)                                       ## Put the ball below the paddle
 
-
-        # update_ball = update_ball_info(ball_x_y, ball_direction, SCREEN_WIDTH, SCREEN_HEIGHT)
-        # ball = pygame.draw.circle(screen, (242, 91, 80), ball_x_y, 10)
-        #
-        # ball_x_y = update_ball[0]
-        # ball_direction = update_ball[1]
-        # print(ball_x_y)
-        # # for i in range(5):
-        # #      update_ball = update_ball_info(ball_x_y, ball_direction, SCREEN_WIDTH, SCREEN_HEIGHT)
-        #
-        print('collide_with_paddle_info: ball_x_y, ball_direction', ball_x_y, ball_direction, 'before')
-        # # ball_direction = (ball_direction[0]*-1, ball_direction[1]*-1)
-        # # ball_direction = tuple( item * 5 for item in ball_direction)
-        # print('collide_with_paddle_info: ball_x_y, ball_direction', ball_x_y, ball_direction, 'after')
-        # print ("ball: ", ball.x, ball.y, ball.width, ball.height)
-        # print("paddle", paddle.x, paddle.y, paddle.width, paddle.height)
+        update_ball = update_ball_info(ball_x_y, ball_direction, SCREEN_WIDTH, SCREEN_HEIGHT)
+        ball = pygame.draw.circle(screen, (242, 91, 80), ball_x_y, 10)
         # running = False
-        # # running = False
-    # if pygame.sprite.collide_rect(ball, paddle):
 
+    time.sleep(gamespeed * 0.0005)
 
 
 # Done! Time to quit.
