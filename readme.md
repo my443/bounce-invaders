@@ -11,3 +11,27 @@ Enjoy, or remix this as you wish.
 ### Interesting Fact
 Steve Wozniak actually programmed the first **Little Brick Out** game.
 
+### ToDos
+#### Sprint 1
+[ ] Add the aliens ships that you need to destroy
+[ ] When the ball hits a ship, the ship is removed.
+[ ] When you hit all the ships, you start over again at the next level.
+
+#### Sprint 2
+[ ] Make the ships move. 
+    [ ] Move back and forth across the screen. 
+    [ ] Move one row down each time they get to the edge of the screen. 
+    [ ] When they hit the paddle, or the bottom of the screen, you lose the game. (No matter how many paddles you have left.)
+
+#### Sprint 3
+[ ] Add a scoreboard
+[ ] When the ball hits a ship, the score is increased.
+
+#### Sprint 4
+[ ] Add a counter for the number of balls that you have. 
+[ ] When the ball hits the bottom of the screen, you lose a ball.
+
+#### Sprint 5
+[ ] Add a splash screen for instructions and starting the game. (Include the instructions for keys to press.)
+[ ] Add the ability to control with a game controller. 
+
