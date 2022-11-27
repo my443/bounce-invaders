@@ -4,7 +4,7 @@ def update_ball_info(ball_x_y: tuple, ball_direction: tuple, SCREEN_WIDTH: int, 
     new_x_y_for_ball = list(ball_x_y)
     new_ball_direction = list(ball_direction)
 
-    print ('update_ball_info: ball_x_y, ball_direction', ball_x_y, ball_direction)
+    print ('update_ball_info: ball_x_y, ball_direction        ', ball_x_y, ball_direction)
 
     ## See this page for adding two tuples
     ## https://stackoverflow.com/questions/1169725/adding-values-from-tuples-of-same-length
@@ -15,8 +15,13 @@ def update_ball_info(ball_x_y: tuple, ball_direction: tuple, SCREEN_WIDTH: int, 
         new_x_y_for_ball[0] = ball_x_y[0]
         new_ball_direction[0]  = ball_direction[0] * -1
 
-    if new_x_y_for_ball[1] >= SCREEN_HEIGHT or new_x_y_for_ball[1] <= 0:
+    if new_x_y_for_ball[1] >= SCREEN_HEIGHT:
         new_x_y_for_ball[1] = SCREEN_HEIGHT
         new_ball_direction[1]  = ball_direction[1] * -1
+
+    if new_x_y_for_ball[1] <= 0:
+        new_x_y_for_ball[1] = 0
+        new_ball_direction[1] = ball_direction[1] * -1
+
 
     return (tuple(new_x_y_for_ball), tuple(new_ball_direction))
