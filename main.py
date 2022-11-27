@@ -42,8 +42,8 @@ ball_x_y = (250, 250)
 
 ## DONE - Set a gamespeed. So that the ball will go slower and faster, but the paddle speed doesn't change at all.
 ## Gamespeed is a number between 1 and 10.
-## 1    - is the slowest speed
-## 10   - is the fastest speed.
+## 1    - is the fastest speed
+## 10   - is the slowest speed.
 gamespeed = 5
 
 ## Ball movement is determined by the x, y movement.
