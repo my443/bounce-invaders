@@ -39,8 +39,9 @@ paddle_left = (SCREEN_WIDTH / 2) - (PADDLE_WIDTH / 2)
 paddle_top  = 500
 
 ## Set up the ball
-## TODO - Start the ball in a random place, or in a random **direction** every time.
-ball_x_y = (250, 250)
+## DONE - Start the ball in a random place, or in a random **direction** every time.
+##      (Started it from the middle of the paddle, going up.)
+ball_x_y = (SCREEN_WIDTH / 2, 499)
 
 ## DONE - Set a gamespeed. So that the ball will go slower and faster, but the paddle speed doesn't change at all.
 ## Gamespeed is a number between 1 and 10.
@@ -50,7 +51,7 @@ gamespeed = 5
 
 ## Ball movement is determined by the x, y movement.
 ## Numbers in this tuple can be positive or negative integers of any size.
-ball_direction = (1, 1)
+ball_direction = (1, -1)
 
 # Run until the user asks to quit
 running = True
@@ -58,6 +59,8 @@ runloop = 0
 
 # r = Rect(55, 55, 55, 25)
 # enemies = [Rect(55 + (i * 150), 55, 55, 25) for i in range(5)]
+
+# Add the enemies
 enemies = []
 for j in range(5):
     for i in range(5):
