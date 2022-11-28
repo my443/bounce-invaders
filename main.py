@@ -9,6 +9,8 @@ import pygame
 from update_ball import *
 from operator import mul
 import time
+from pygame import Rect
+
 
 # Import pygame.locals for easier access to key coordinates
 # Updated to conform to flake8 and black standards
@@ -52,6 +54,16 @@ ball_direction = (1, 1)
 
 # Run until the user asks to quit
 running = True
+runloop = 0
+
+# r = Rect(55, 55, 55, 25)
+# enemies = [Rect(55 + (i * 150), 55, 55, 25) for i in range(5)]
+enemies = []
+for j in range(5):
+    for i in range(5):
+        enemies.append(Rect(55 + (i * 150), 55+(j*50), 55, 25))
+
+
 while running:
     # Did the user click the window close button?
     for event in pygame.event.get():
@@ -75,6 +87,28 @@ while running:
     ball = pygame.draw.circle(screen, (242, 91, 80), ball_x_y, 10)
 
     paddle = pygame.draw.rect(screen, (0, 0, 255), (paddle_left, paddle_top, PADDLE_WIDTH, 25))
+
+    for item in enemies:
+        pygame.draw.rect(screen, (255,0,0) , item)
+
+    # if runloop == 0:
+    #     enemies = [pygame.draw.rect(screen, (255, 0, 0), (55+(i*150), 55, 55, 25)) for i in range(5)]
+    #     runloop = 1
+    # else:
+    #     enemies = enemies
+
+    if ball.collidelist(enemies) != -1:
+        index_of_hit_enemy = ball.collidelist(enemies)
+        print (index_of_hit_enemy)
+        del enemies[index_of_hit_enemy]
+        ball_direction = tuple(map(mul, ball_direction, (1, -1)))
+        update_ball = update_ball_info(ball_x_y, ball_direction, SCREEN_WIDTH, SCREEN_HEIGHT)
+        ball = pygame.draw.circle(screen, (242, 91, 80), ball_x_y, 10)
+
+        # If you finish the level, the game ends.
+        if len(enemies) == 0:
+            running = False
+
     # Flip the display
     pygame.display.flip()
 
