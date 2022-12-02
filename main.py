@@ -4,6 +4,10 @@
 # Press Shift+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 
+## l = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+## a = list(map(lambda x: [x[0], x[1] + 5, x[1]], l))
+## a.assert.equals([[1, 7, 2], [4, 10, 5], [7, 13, 8]])
+
 # Import and initialize the pygame library
 import pygame
 from update_ball import *
