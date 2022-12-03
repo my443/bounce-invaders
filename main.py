@@ -14,18 +14,16 @@ from update_ball import *
 from operator import mul
 import time
 from pygame import Rect
+from move_enemies import *
 
 
 # Import pygame.locals for easier access to key coordinates
 # Updated to conform to flake8 and black standards
 from pygame.locals import (
-    K_UP,
-    K_DOWN,
     K_LEFT,
     K_RIGHT,
     K_ESCAPE,
     KEYDOWN,
-    QUIT,
 )
 
 SCREEN_WIDTH    = 800
@@ -57,6 +55,10 @@ gamespeed = 5
 ## Numbers in this tuple can be positive or negative integers of any size.
 ball_direction = (1, -1)
 
+## Each time the level increases, the speed can increase also by some factor.
+level = 1
+speed_increase_factor = .95
+
 # Run until the user asks to quit
 running = True
 runloop = 0
@@ -68,10 +70,33 @@ runloop = 0
 enemies = []
 for j in range(5):
     for i in range(5):
-        enemies.append(Rect(55 + (i * 150), 55+(j*50), 55, 25))
+        top  = 55 + (i * 150)
+        left = 25 + (j * 50)
+        enemies.append(Rect(top, left, 55, 25))
 
-
+current_enemy_position = 0
+enemy_direction = 1
+# b = move_enemies(enemies, current_enemy_position, 1)
+# print (enemies)
+# print (b)
+counter = 0
 while running:
+    counter += 1
+    if counter % 15 == 0:
+        enemies = move_enemies(enemies, current_enemy_position, enemy_direction)
+
+    # change the enemy direction if it hits the right side (6) or the left side (0)
+    if current_enemy_position >= 250:
+        enemies = move_enemies_down(enemies)
+        enemy_direction = -1
+        # running = False
+    elif current_enemy_position <= 0:
+        enemies = move_enemies_down(enemies)
+        enemy_direction = 1
+
+    current_enemy_position += enemy_direction
+    # print (current_enemy_position, enemy_direction)
+
     # Did the user click the window close button?
     for event in pygame.event.get():
         if event.type == KEYDOWN:
@@ -138,7 +163,6 @@ while running:
         # running = False
 
     time.sleep(gamespeed * 0.0005)
-
 
 # Done! Time to quit.
 pygame.quit()
