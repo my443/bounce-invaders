@@ -101,7 +101,6 @@ counter = 0
 score   = 0
 lifes = 3
 while running:
-
     counter += 1
     if counter % 10-level == 0:
         enemies = move_enemies(enemies, current_enemy_position, enemy_direction)
@@ -165,7 +164,7 @@ while running:
             enemies = generate_enemies()
             # running = False
 
-    # Flip the display
+    # Flip the display after adding all of thet text
     level_text = font.render('Level:  '+str(level), True, (0, 0, 0))
     score_text = font.render('Score:  ' + str(score), True, (0, 0, 0))
     lifes_text = font.render('Life:  ' + str(lifes), True, (0, 0, 0))
@@ -174,12 +173,24 @@ while running:
     screen.blit(lifes_text, (300, 550))
     pygame.display.flip()
 
-
     update_ball = update_ball_info(ball_x_y, ball_direction, SCREEN_WIDTH, SCREEN_HEIGHT)
 
     ## Set the x and y and the ball direction at each iteration
     ball_x_y = update_ball[0]
     ball_direction = update_ball[1]
+
+    print (ball_x_y[1])
+    if ball[1] >= 580:
+        lifes += -1
+        ball_x_y = (SCREEN_WIDTH / 2, 499)
+        ball_direction = (1, -1)
+
+    if lifes == 0:
+        game_over_text = font.render('GAME OVER!!', True, (0, 0, 0))
+        screen.blit(game_over_text, (300, 250))
+        pygame.display.flip()
+        time.sleep(5)
+        running = False
 
     if ball.colliderect(paddle):
         if ball_direction[1] == 1 and ball_x_y[1] == 500:
@@ -191,6 +202,8 @@ while running:
 
         update_ball = update_ball_info(ball_x_y, ball_direction, SCREEN_WIDTH, SCREEN_HEIGHT)
         ball = pygame.draw.circle(screen, (242, 91, 80), ball_x_y, 10)
+
+
         # running = False
 
     time.sleep(gamespeed * 0.0005)
