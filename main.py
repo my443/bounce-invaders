@@ -59,20 +59,38 @@ ball_direction = (1, -1)
 level = 1
 speed_increase_factor = .95
 
+font = pygame.font.Font('freesansbold.ttf', 32)
+
+# create a text surface object,
+# on which text is drawn on it.
+text = font.render('Level', True, (0,0,0))
+
+# create a rectangular object for the
+# text surface object
+textRect = text.get_rect()
+
 # Run until the user asks to quit
 running = True
 runloop = 0
 
 # r = Rect(55, 55, 55, 25)
 # enemies = [Rect(55 + (i * 150), 55, 55, 25) for i in range(5)]
+def generate_enemies():
+
+    enemies = []
+    for j in range(5):
+        for i in range(5):
+            top = 55 + (i * 150)
+            left = 25 + (j * 50)
+            enemies.append(Rect(top, left, 55, 25))
+
+    return enemies
+
+enemies = generate_enemies()
+
 
 # Add the enemies
-enemies = []
-for j in range(5):
-    for i in range(5):
-        top  = 55 + (i * 150)
-        left = 25 + (j * 50)
-        enemies.append(Rect(top, left, 55, 25))
+generate_enemies()
 
 current_enemy_position = 0
 enemy_direction = 1
@@ -80,9 +98,12 @@ enemy_direction = 1
 # print (enemies)
 # print (b)
 counter = 0
+score   = 0
+lifes = 3
 while running:
+
     counter += 1
-    if counter % 15 == 0:
+    if counter % 10-level == 0:
         enemies = move_enemies(enemies, current_enemy_position, enemy_direction)
 
     # change the enemy direction if it hits the right side (6) or the left side (0)
@@ -136,13 +157,23 @@ while running:
         ball_direction = tuple(map(mul, ball_direction, (1, -1)))
         update_ball = update_ball_info(ball_x_y, ball_direction, SCREEN_WIDTH, SCREEN_HEIGHT)
         ball = pygame.draw.circle(screen, (242, 91, 80), ball_x_y, 10)
+        score += level + 1
 
-        # If you finish the level, the game ends.
+        # If you finish the level
         if len(enemies) == 0:
-            running = False
+            level += 1
+            enemies = generate_enemies()
+            # running = False
 
     # Flip the display
+    level_text = font.render('Level:  '+str(level), True, (0, 0, 0))
+    score_text = font.render('Score:  ' + str(score), True, (0, 0, 0))
+    lifes_text = font.render('Life:  ' + str(lifes), True, (0, 0, 0))
+    screen.blit(level_text, (0, 550))
+    screen.blit(score_text, (550, 550))
+    screen.blit(lifes_text, (300, 550))
     pygame.display.flip()
+
 
     update_ball = update_ball_info(ball_x_y, ball_direction, SCREEN_WIDTH, SCREEN_HEIGHT)
 
