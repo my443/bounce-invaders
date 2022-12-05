@@ -151,7 +151,7 @@ while running:
 
     if ball.collidelist(enemies) != -1:
         index_of_hit_enemy = ball.collidelist(enemies)
-        print (index_of_hit_enemy)
+        # print (index_of_hit_enemy)
         del enemies[index_of_hit_enemy]
         ball_direction = tuple(map(mul, ball_direction, (1, -1)))
         update_ball = update_ball_info(ball_x_y, ball_direction, SCREEN_WIDTH, SCREEN_HEIGHT)
@@ -179,7 +179,7 @@ while running:
     ball_x_y = update_ball[0]
     ball_direction = update_ball[1]
 
-    print (ball_x_y[1])
+    # print (ball_x_y[1])
     if ball[1] >= 580:
         lifes += -1
         ball_x_y = (SCREEN_WIDTH / 2, 499)
